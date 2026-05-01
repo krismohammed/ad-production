@@ -11,10 +11,10 @@ $adminsOU = "OU=Admins,OU=Users,$domainDN"
 $disabledUsersOU = "OU=Disabled_Users,OU=Users,$domainDN"
 
 # Gather required information from Active Directory
-$employees = Get-ADUser -Filter * -SearchBase $ouEMP -Property DisplayName, SamAccountName, UserPrincipalName, userCertificate, LastLogonDate, whenCreated, Enabled 
-$contractors = Get-ADUser -Filter * -SearchBase $ouCTR -Property DisplayName, SamAccountName, UserPrincipalName, userCertificate, LastLogonDate, whenCreated, Enabled 
-$admins = Get-ADUser -Filter * -SearchBase $ouAdmins -Property DisplayName, SamAccountName, UserPrincipalName, userCertificate, LastLogonDate, whenCreated, Enabled 
-$disabledUsers = Get-ADUser -Filter * -SearchBase $ouDisabled -Property DisplayName, SamAccountName, UserPrincipalName, userCertificate, LastLogonDate, whenCreated, Enabled
+$employees = Get-ADUser -Filter * -SearchBase $employeeOU -Property DisplayName, SamAccountName, UserPrincipalName, userCertificate, LastLogonDate, whenCreated, Enabled 
+$contractors = Get-ADUser -Filter * -SearchBase $contractorOU -Property DisplayName, SamAccountName, UserPrincipalName, userCertificate, LastLogonDate, whenCreated, Enabled 
+$admins = Get-ADUser -Filter * -SearchBase $adminsOU -Property DisplayName, SamAccountName, UserPrincipalName, userCertificate, LastLogonDate, whenCreated, Enabled 
+$disabledUsers = Get-ADUser -Filter * -SearchBase $disabledUsersOU -Property DisplayName, SamAccountName, UserPrincipalName, userCertificate, LastLogonDate, whenCreated, Enabled
 
 # Combine information from each OU
 $users = $employees + $contractors + $admins + $disabledUsers
