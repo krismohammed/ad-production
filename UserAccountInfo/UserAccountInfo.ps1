@@ -5,19 +5,19 @@ $currentDomain = (Get-WmiObject Win32ComputerSystem).Domain
 $domainDN = (Get-ADDomain).DistinguishedName
 $outputCSV = Join "$PSScriptRoot" 'UserAccountInfo.csv'
 
-$ouEMP = "OU=Employees,OU=Users,$domainDN"
-$ouCTR = "OU=Contractors,OU=Users,$domainDN"
-$ouAdmins = "OU=Admins,OU=Users,$domainDN"
-$ouDisabled = "OU=Disabled_Users,OU=Users,$domainDN"
+$employeeOU = "OU=Employees,OU=Users,$domainDN"
+$contractorOU = "OU=Contractors,OU=Users,$domainDN"
+$adminsOU = "OU=Admins,OU=Users,$domainDN"
+$disabledUsersOU = "OU=Disabled_Users,OU=Users,$domainDN"
 
 # Gather required information from Active Directory
-$Employees = Get-ADUser -Filter * -SearchBase $ouEMP -Property DisplayName, SamAccountName, UserPrincipalName, userCertificate, LastLogonDate, whenCreated, Enabled 
-$Contractors = Get-ADUser -Filter * -SearchBase $ouCTR -Property DisplayName, SamAccountName, UserPrincipalName, userCertificate, LastLogonDate, whenCreated, Enabled 
-$Admins = Get-ADUser -Filter * -SearchBase $ouAdmins -Property DisplayName, SamAccountName, UserPrincipalName, userCertificate, LastLogonDate, whenCreated, Enabled 
-$Disabled_users = Get-ADUser -Filter * -SearchBase $ouDisabled -Property DisplayName, SamAccountName, UserPrincipalName, userCertificate, LastLogonDate, whenCreated, Enabled
+$employees = Get-ADUser -Filter * -SearchBase $ouEMP -Property DisplayName, SamAccountName, UserPrincipalName, userCertificate, LastLogonDate, whenCreated, Enabled 
+$contractors = Get-ADUser -Filter * -SearchBase $ouCTR -Property DisplayName, SamAccountName, UserPrincipalName, userCertificate, LastLogonDate, whenCreated, Enabled 
+$admins = Get-ADUser -Filter * -SearchBase $ouAdmins -Property DisplayName, SamAccountName, UserPrincipalName, userCertificate, LastLogonDate, whenCreated, Enabled 
+$disabledUsers = Get-ADUser -Filter * -SearchBase $ouDisabled -Property DisplayName, SamAccountName, UserPrincipalName, userCertificate, LastLogonDate, whenCreated, Enabled
 
 # Combine information from each OU
-$users = $Employees + $Contractors + $Admins + $Disabled_users
+$users = $employees + $contractors + $admins + $disabledUsers
 
 # Initialize an array to hold the processed user info
 $userAccountInfo = @()
