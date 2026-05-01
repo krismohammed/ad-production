@@ -20,6 +20,7 @@ try {
     exit 1
 }
 
+# Main function to create and edit security groups
 function Set-SecurityGroup {
     param (
         [string]$groupName,
