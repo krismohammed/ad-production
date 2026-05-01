@@ -13,7 +13,6 @@ if (-not (Test-Path $jsonPath)) {
 }
 
 # Load the JSON file
-
 try {
     $jsonContent = Get-Content $jsonPath -Raw | ConvertFrom-Json
 } catch {
